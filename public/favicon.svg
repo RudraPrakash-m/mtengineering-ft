@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Solid Vibrant Construction Amber Rounded Tile (Pops in all browser tab themes) -->
+  <rect width="32" height="32" rx="7" fill="url(#amberGrad)" />
+  
+  <!-- Subtle Inner Inset Bevel for Crisp Edge Definition -->
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="6.25" stroke="#FFFFFF" stroke-width="1.2" stroke-opacity="0.35" fill="none" />
+
+  <!-- Ultra-Bold "MT" Engineering Monogram in Deep Slate (Maximum Contrast) -->
+  <!-- 'M' Letterform -->
+  <path d="M 4 25 V 7 H 7.6 L 10.5 15.2 L 13.4 7 H 17 V 25 H 13.6 V 12.8 L 11.2 18.5 H 9.8 L 7.4 12.8 V 25 Z" fill="#0F172A" />
+  
+  <!-- 'T' Letterform -->
+  <path d="M 18 7 H 28 V 10.6 H 25 V 25 H 21.4 V 10.6 H 18 Z" fill="#0F172A" />
+
+  <!-- Crisp Precision Engineering Dot (Top-Right Accent) -->
+  <circle cx="26.5" cy="4.5" r="1.5" fill="#FFFFFF" />
+
+  <!-- Definitions -->
+  <defs>
+    <linearGradient id="amberGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+  </defs>
+</svg>

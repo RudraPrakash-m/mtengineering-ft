@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@import "react-toastify/dist/ReactToastify.css";
+
+@layer base {
+  :root {
+    --font-primary: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --color-primary: #0F172A;
+    --color-primary-light: #1E293B;
+    --color-accent: #D97706;
+    --color-accent-hover: #B45309;
+    --color-surface: #F8FAFC;
+    --color-border: #E2E8F0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-primary);
+    background-color: #FFFFFF;
+    color: #0F172A;
+    overflow-x: hidden;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+}
+
+.font-display, .font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-sans {
+  font-family: var(--font-primary);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Clean Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Image Reveal Smooth Effect */
+.img-reveal-curtain {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* React Toastify Clean Theme */
+.Toastify__toast-theme--light.arch-toast {
+  background: #0F172A !important;
+  color: #F8FAFC !important;
+  border-left: 4px solid #D97706 !important;
+  border-radius: 8px !important;
+  font-family: var(--font-primary) !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.25) !important;
+}
+.Toastify__progress-bar--light {
+  background: #D97706 !important;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite ease-in-out;
+}
