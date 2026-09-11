@@ -208,6 +208,10 @@ export default function About() {
                   <img
                     src={ldr.image}
                     alt={ldr.name}
+                    width="600"
+                    height="450"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 </div>

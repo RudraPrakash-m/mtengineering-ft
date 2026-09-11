@@ -42,6 +42,10 @@ export default function IntroSection() {
         <img
           src="/images/machinery/cnc_spindle.png"
           alt="5-Axis High-Speed CNC Milling Spindle"
+          width="224"
+          height="224"
+          loading="lazy"
+          decoding="async"
           className="w-full h-auto drop-shadow-[0_20px_35px_rgba(15,23,42,0.14)]"
         />
       </div>

@@ -78,6 +78,10 @@ export default function Process() {
         <img
           src="/images/machinery/laser_head.png"
           alt="Precision Industrial Optical Laser Cutting Head"
+          width="208"
+          height="208"
+          loading="lazy"
+          decoding="async"
           className="w-full h-auto drop-shadow-[0_20px_40px_rgba(15,23,42,0.16)]"
         />
       </div>

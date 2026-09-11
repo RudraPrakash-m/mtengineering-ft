@@ -158,6 +158,11 @@ export default function Hero() {
                 <img
                   src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop"
                   alt="Architectural Scale Model and Steel Engineering by MT Engineering"
+                  width="1200"
+                  height="800"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
                   className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
 

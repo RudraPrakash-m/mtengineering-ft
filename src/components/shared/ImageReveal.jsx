@@ -60,8 +60,12 @@ export default function ImageReveal({
           ref={imageRef}
           src={src}
           alt={alt}
+          width="1200"
+          height="800"
           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           loading={priority ? 'eager' : 'lazy'}
+          fetchpriority={priority ? 'high' : 'auto'}
+          decoding="async"
         />
 
         {/* Clean Badges */}
