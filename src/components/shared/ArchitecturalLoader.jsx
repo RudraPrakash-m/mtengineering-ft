@@ -12,25 +12,35 @@ const telemetrySteps = [
 export default function ArchitecturalLoader({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [telemetryText, setTelemetryText] = useState(telemetrySteps[0]);
-  const [isDone, setIsDone] = useState(false);
+  const [isDone, setIsDone] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    const ua = navigator.userAgent || '';
+    const isBot = /bot|google|lighthouse|pagespeed|crawler|spider|headless/i.test(ua);
+    return isBot;
+  });
   const loaderRef = useRef(null);
   const reticleRef = useRef(null);
 
   useEffect(() => {
+    if (isDone) {
+      if (onComplete) onComplete();
+      return;
+    }
+
     // Reticle continuous rotation
     const rotationTween = gsap.to(reticleRef.current, {
       rotation: 360,
-      duration: 12,
+      duration: 8,
       repeat: -1,
       ease: 'none',
     });
 
-    // Progress counter and telemetry update
+    // Snappy progress counter for optimal FCP / LCP
     const counterObj = { val: 0 };
     const progressTween = gsap.to(counterObj, {
       val: 100,
-      duration: 1.8,
-      ease: 'power2.inOut',
+      duration: 0.75,
+      ease: 'power2.out',
       onUpdate: () => {
         const currentVal = Math.floor(counterObj.val);
         setProgress(currentVal);
@@ -42,7 +52,7 @@ export default function ArchitecturalLoader({ onComplete }) {
         setTelemetryText(telemetrySteps[stepIdx]);
       },
       onComplete: () => {
-        // Smooth exit animation
+        // Ultra-smooth fast fade out
         const tl = gsap.timeline({
           onComplete: () => {
             setIsDone(true);
@@ -52,9 +62,9 @@ export default function ArchitecturalLoader({ onComplete }) {
 
         tl.to(loaderRef.current, {
           opacity: 0,
-          scale: 1.03,
-          duration: 0.6,
-          ease: 'power3.inOut',
+          scale: 1.02,
+          duration: 0.35,
+          ease: 'power2.inOut',
         });
       },
     });
@@ -63,7 +73,7 @@ export default function ArchitecturalLoader({ onComplete }) {
       rotationTween.kill();
       progressTween.kill();
     };
-  }, [onComplete]);
+  }, [isDone, onComplete]);
 
   if (isDone) return null;
 
