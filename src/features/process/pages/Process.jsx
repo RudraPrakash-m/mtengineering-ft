@@ -3,6 +3,7 @@ import { gsap } from '../../../lib/gsap';
 import SectionHeading from '../../../components/shared/SectionHeading';
 import ImageReveal from '../../../components/shared/ImageReveal';
 import Button from '../../../components/shared/Button';
+import SEO from '../../../components/shared/SEO';
 import { CheckCircle, Clock, FileCheck, ShieldAlert, Truck } from 'lucide-react';
 import { useLanguage } from '../../../i18n/LanguageContext';
 
@@ -108,6 +109,11 @@ export default function Process() {
 
   return (
     <div ref={containerRef} className="pt-28 md:pt-36 pb-20 bg-gradient-to-b from-slate-50 via-[#FAF9F5] to-slate-50/70 relative overflow-hidden">
+      <SEO
+        title="5-Stage Fabrication & Engineering Process"
+        description="Discover MT Engineering's 5-stage precision methodology: consultation, CAD toolpath programming, 5-axis CNC machining, hand finishing, and turnkey site installation."
+        canonicalUrl="https://mtengineering.netlify.app/process"
+      />
       
       {/* Precision Blueprint Coordinate Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.025] bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:40px_40px]" />

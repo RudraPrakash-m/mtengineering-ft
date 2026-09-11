@@ -3,6 +3,7 @@ import { gsap } from '../../../lib/gsap';
 import SectionHeading from '../../../components/shared/SectionHeading';
 import ImageReveal from '../../../components/shared/ImageReveal';
 import Button from '../../../components/shared/Button';
+import SEO from '../../../components/shared/SEO';
 import { Award, Compass, Building, Sparkles, CheckCircle, ShieldCheck, MapPin } from 'lucide-react';
 import { useLanguage } from '../../../i18n/LanguageContext';
 
@@ -62,6 +63,11 @@ export default function About() {
 
   return (
     <div ref={containerRef} className="pt-28 md:pt-36 pb-20 bg-gradient-to-b from-slate-50 via-[#FAF9F5] to-slate-50/70 relative overflow-hidden min-h-screen">
+      <SEO
+        title="About Us | Civil & Scale Model Studio"
+        description="Learn about MT Engineering & Construction in Jaydev Vihar, Bhubaneswar. Discover our engineering leadership, Mancheswar steel depot, and 18+ years of contracting excellence."
+        canonicalUrl="https://mtengineering.netlify.app/about"
+      />
       {/* Blueprint Coordinate Micro-grid Background Accent */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.025] bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:40px_40px]" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-amber-500/[0.03] rounded-full blur-3xl pointer-events-none" />

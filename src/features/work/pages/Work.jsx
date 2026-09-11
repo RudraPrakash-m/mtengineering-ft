@@ -5,6 +5,7 @@ import ProjectFilter from '../components/ProjectFilter';
 import ProjectCard from '../components/ProjectCard';
 import { projectsData } from '../data/projectsData';
 import Button from '../../../components/shared/Button';
+import SEO from '../../../components/shared/SEO';
 import { useLanguage } from '../../../i18n/LanguageContext';
 
 const categories = ['All', 'Architectural', 'Structural', 'RCC', 'Urban'];
@@ -46,6 +47,11 @@ export default function Work() {
 
   return (
     <div className="pt-28 md:pt-36 pb-20 bg-gradient-to-b from-slate-50 via-[#FAF9F5] to-slate-50/70 relative overflow-hidden">
+      <SEO
+        title="Work & Scale Models Archive"
+        description="Browse MT Engineering's portfolio of architectural physical scale models, structural steel projects, and RCC slabs across Bhubaneswar and Odisha."
+        canonicalUrl="https://mtengineering.netlify.app/work"
+      />
       
       {/* Precision Blueprint Coordinate Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.025] bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:40px_40px]" />

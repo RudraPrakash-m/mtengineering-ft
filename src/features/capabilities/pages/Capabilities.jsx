@@ -3,6 +3,7 @@ import { gsap } from '../../../lib/gsap';
 import SectionHeading from '../../../components/shared/SectionHeading';
 import ImageReveal from '../../../components/shared/ImageReveal';
 import Button from '../../../components/shared/Button';
+import SEO from '../../../components/shared/SEO';
 import { Building2, Compass, Layers, Sparkles, Cpu, Hammer, CheckCircle, Check, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../../i18n/LanguageContext';
 
@@ -102,6 +103,11 @@ export default function Capabilities() {
 
   return (
     <div ref={containerRef} className="pt-28 md:pt-36 pb-20 bg-gradient-to-b from-slate-50 via-[#FAF9F5] to-slate-50/70 relative overflow-hidden">
+      <SEO
+        title="Engineering Capabilities & Fabrication Scope"
+        description="Explore MT Engineering's civil and scale model capabilities in Bhubaneswar: architectural physical models, structural steel fabrication, RCC slabs, and urban masterplans."
+        canonicalUrl="https://mtengineering.netlify.app/capabilities"
+      />
       
       {/* Precision Blueprint Coordinate Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.025] bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:40px_40px]" />

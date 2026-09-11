@@ -3,6 +3,7 @@ import { gsap } from '../../../lib/gsap';
 import SectionHeading from '../../../components/shared/SectionHeading';
 import ContactForm from '../components/ContactForm';
 import ContactInfo from '../components/ContactInfo';
+import SEO from '../../../components/shared/SEO';
 import { useLanguage } from '../../../i18n/LanguageContext';
 
 export default function Contact() {
@@ -28,6 +29,11 @@ export default function Contact() {
 
   return (
     <div ref={containerRef} className="pt-32 md:pt-40 pb-24 bg-gradient-to-b from-slate-50 via-[#FAF9F5] to-slate-50/70 relative overflow-hidden min-h-screen">
+      <SEO
+        title="Request Quotation & Contact"
+        description="Contact MT Engineering & Construction at Jaydev Vihar, Bhubaneswar. Request a fast feasibility assessment and quotation for scale models or structural steel fabrication."
+        canonicalUrl="https://mtengineering.netlify.app/contact"
+      />
       {/* Blueprint Coordinate Micro-grid Background Accent */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.025] bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:40px_40px]" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-amber-500/[0.03] rounded-full blur-3xl pointer-events-none" />

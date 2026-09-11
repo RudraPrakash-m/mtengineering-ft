@@ -1,0 +1,8 @@
+# Robots.txt for MT Engineering & Construction
+# https://mtengineering.netlify.app/
+
+User-agent: *
+Allow: /
+
+# Sitemap Index
+Sitemap: https://mtengineering.netlify.app/sitemap.xml

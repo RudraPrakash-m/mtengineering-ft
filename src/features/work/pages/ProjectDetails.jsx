@@ -4,6 +4,7 @@ import { gsap } from '../../../lib/gsap';
 import { projectsData } from '../data/projectsData';
 import ImageReveal from '../../../components/shared/ImageReveal';
 import Button from '../../../components/shared/Button';
+import SEO from '../../../components/shared/SEO';
 import { ArrowLeft, ArrowRight, Check, Compass, Layers, ShieldCheck, Ruler, Building2, MapPin } from 'lucide-react';
 import { useLanguage } from '../../../i18n/LanguageContext';
 
@@ -73,6 +74,13 @@ export default function ProjectDetails() {
 
   return (
     <div ref={containerRef} className="pt-28 md:pt-36 pb-20 bg-gradient-to-b from-slate-50 via-[#FAF9F5] to-slate-50/70 relative overflow-hidden min-h-screen">
+      <SEO
+        title={`${displayTitle} | ${displayCategory} Project`}
+        description={displayShortDesc || `Explore ${displayTitle} by MT Engineering & Construction in ${displayLocation}. Precision scale modeling and civil engineering execution.`}
+        canonicalUrl={`https://mtengineering.netlify.app/work/${project.id}`}
+        image={project.heroImage}
+        ogType="article"
+      />
       {/* Blueprint Coordinate Micro-grid Background Accent */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.025] bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:40px_40px]" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-amber-500/[0.03] rounded-full blur-3xl pointer-events-none" />
