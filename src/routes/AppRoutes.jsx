@@ -1,47 +1,14 @@
-import { lazy, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
 import Home from '../features/home/pages/Home';
-
-// Lazy load secondary routes with explicit prefetch functions
-export const loadAbout = () => import('../features/about/pages/About');
-export const loadWork = () => import('../features/work/pages/Work');
-export const loadProjectDetails = () => import('../features/work/pages/ProjectDetails');
-export const loadCapabilities = () => import('../features/capabilities/pages/Capabilities');
-export const loadProcess = () => import('../features/process/pages/Process');
-export const loadContact = () => import('../features/contact/pages/Contact');
-
-const About = lazy(loadAbout);
-const Work = lazy(loadWork);
-const ProjectDetails = lazy(loadProjectDetails);
-const Capabilities = lazy(loadCapabilities);
-const Process = lazy(loadProcess);
-const Contact = lazy(loadContact);
-
-// Preload all secondary chunks during browser idle time for 0ms navigation
-function prefetchAllRoutes() {
-  if (typeof window === 'undefined') return;
-  const prefetch = () => {
-    loadAbout();
-    loadWork();
-    loadProjectDetails();
-    loadCapabilities();
-    loadProcess();
-    loadContact();
-  };
-
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(prefetch, { timeout: 2000 });
-  } else {
-    setTimeout(prefetch, 800);
-  }
-}
+import About from '../features/about/pages/About';
+import Work from '../features/work/pages/Work';
+import ProjectDetails from '../features/work/pages/ProjectDetails';
+import Capabilities from '../features/capabilities/pages/Capabilities';
+import Process from '../features/process/pages/Process';
+import Contact from '../features/contact/pages/Contact';
 
 export default function AppRoutes() {
-  useEffect(() => {
-    prefetchAllRoutes();
-  }, []);
-
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -57,5 +24,6 @@ export default function AppRoutes() {
     </Routes>
   );
 }
+
 
 

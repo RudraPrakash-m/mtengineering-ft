@@ -1,10 +1,8 @@
-import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/shared/Navbar';
 import Footer from '../components/shared/Footer';
 import ScrollToTop from '../components/shared/ScrollToTop';
 import ToastContainerConfig from '../components/shared/ToastContainerConfig';
-import PageLoader from '../components/shared/PageLoader';
 
 export default function MainLayout() {
   return (
@@ -15,11 +13,9 @@ export default function MainLayout() {
       {/* Global Architectural Navigation */}
       <Navbar />
 
-      {/* Main Page Slot with Suspense Transition Fallback */}
+      {/* Main Page Slot */}
       <main className="grow">
-        <Suspense fallback={<PageLoader />}>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </main>
 
       {/* Atelier Footer */}

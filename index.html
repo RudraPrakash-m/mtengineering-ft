@@ -135,14 +135,19 @@
     href="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&amp;w=1200&amp;auto=format&amp;fit=crop"
     fetchpriority="high" />
 
-  <!-- Professional Modern Fonts (Async Non-Render-Blocking Load) -->
+  <!-- Professional Modern Fonts (Async Non-Render-Blocking Load with Display Swap) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" />
   <link
+    rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-    rel="stylesheet" media="print" onload="this.media='all'" />
+    media="print"
+    onload="this.media='all'" />
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+  </noscript>
 </head>
 
 <body class="bg-[#FAF9F5] text-slate-900 antialiased selection:bg-amber-600 selection:text-white font-sans">

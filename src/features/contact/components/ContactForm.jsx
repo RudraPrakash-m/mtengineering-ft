@@ -81,7 +81,7 @@ export default function ContactForm() {
         <h3 className="text-xl font-bold text-slate-900 font-display">
           {t('contact.formTitle', 'Project Estimation & Feasibility')}
         </h3>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-slate-600 mt-1">
           {t('contact.formSubtitle', 'Fill out the details below to receive a comprehensive technical proposal and cost estimate.')}
         </p>
       </div>
@@ -89,40 +89,48 @@ export default function ContactForm() {
       {/* Row 1: Name & Email */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            {t('contact.fullName', 'Full Name')} <span className="text-rose-500">*</span>
+          <label htmlFor="contact-name" className="block text-xs font-semibold text-slate-700">
+            {t('contact.fullName', 'Full Name')} <span className="text-rose-600" aria-hidden="true">*</span>
           </label>
           <input
+            id="contact-name"
             type="text"
             name="name"
+            required
+            aria-required="true"
+            aria-invalid={errors.name ? 'true' : 'false'}
             value={values.name}
             onChange={handleChange}
             placeholder={t('contact.fullNamePlaceholder', 'e.g. Rajesh Mohanty')}
             className={`w-full bg-slate-50 border rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none transition-all ${
-              errors.name ? 'border-rose-300 bg-rose-50/50 ring-2 ring-rose-100' : 'border-slate-200 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100'
+              errors.name ? 'border-rose-400 bg-rose-50/50 ring-2 ring-rose-100' : 'border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100'
             }`}
           />
           {errors.name && (
-            <span className="text-xs text-rose-600 block">{errors.name}</span>
+            <span role="alert" className="text-xs text-rose-600 block">{errors.name}</span>
           )}
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            {t('contact.email', 'Business Email')} <span className="text-rose-500">*</span>
+          <label htmlFor="contact-email" className="block text-xs font-semibold text-slate-700">
+            {t('contact.email', 'Business Email')} <span className="text-rose-600" aria-hidden="true">*</span>
           </label>
           <input
+            id="contact-email"
             type="email"
             name="email"
+            required
+            aria-required="true"
+            aria-invalid={errors.email ? 'true' : 'false'}
             value={values.email}
             onChange={handleChange}
             placeholder={t('contact.emailPlaceholder', 'e.g. rajesh@utkalbuilders.in')}
             className={`w-full bg-slate-50 border rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none transition-all ${
-              errors.email ? 'border-rose-300 bg-rose-50/50 ring-2 ring-rose-100' : 'border-slate-200 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100'
+              errors.email ? 'border-rose-400 bg-rose-50/50 ring-2 ring-rose-100' : 'border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100'
             }`}
           />
           {errors.email && (
-            <span className="text-xs text-rose-600 block">{errors.email}</span>
+            <span role="alert" className="text-xs text-rose-600 block">{errors.email}</span>
           )}
         </div>
       </div>
@@ -130,33 +138,39 @@ export default function ContactForm() {
       {/* Row 2: Company & Discipline */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            {t('contact.company', 'Company / Organization')} <span className="text-rose-500">*</span>
+          <label htmlFor="contact-company" className="block text-xs font-semibold text-slate-700">
+            {t('contact.company', 'Company / Organization')} <span className="text-rose-600" aria-hidden="true">*</span>
           </label>
           <input
+            id="contact-company"
             type="text"
             name="company"
+            required
+            aria-required="true"
+            aria-invalid={errors.company ? 'true' : 'false'}
             value={values.company}
             onChange={handleChange}
             placeholder={t('contact.companyPlaceholder', 'e.g. Utkal Builders / DN Homes')}
             className={`w-full bg-slate-50 border rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none transition-all ${
-              errors.company ? 'border-rose-300 bg-rose-50/50 ring-2 ring-rose-100' : 'border-slate-200 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100'
+              errors.company ? 'border-rose-400 bg-rose-50/50 ring-2 ring-rose-100' : 'border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100'
             }`}
           />
           {errors.company && (
-            <span className="text-xs text-rose-600 block">{errors.company}</span>
+            <span role="alert" className="text-xs text-rose-600 block">{errors.company}</span>
           )}
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
-            {t('contact.service', 'Service Required')} <span className="text-rose-500">*</span>
+          <label htmlFor="contact-service" className="block text-xs font-semibold text-slate-700">
+            {t('contact.service', 'Service Required')} <span className="text-rose-600" aria-hidden="true">*</span>
           </label>
           <select
+            id="contact-service"
             name="projectType"
+            aria-label={t('contact.service', 'Service Required')}
             value={values.projectType}
             onChange={handleChange}
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100 transition-all cursor-pointer"
+            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100 transition-all cursor-pointer"
           >
             {defaultServiceOptions.map((item) => (
               <option key={item.id} value={item.id}>
@@ -170,24 +184,25 @@ export default function ContactForm() {
       {/* Row 3: Target Scale & Target Budget */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
+          <label htmlFor="contact-scale" className="block text-xs font-semibold text-slate-700">
             {t('contact.scale', 'Target Scale / Area (Optional)')}
           </label>
           <input
+            id="contact-scale"
             type="text"
             name="scale"
             value={values.scale}
             onChange={handleChange}
             placeholder={t('contact.scalePlaceholder', 'e.g. 1:100 scale or 25,000 sq.ft.')}
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100 transition-all"
+            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100 transition-all"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-xs font-semibold text-slate-700">
+          <span className="block text-xs font-semibold text-slate-700">
             {t('contact.budget', 'Estimated Budget Allocation')}
-          </label>
-          <div className="grid grid-cols-2 gap-2">
+          </span>
+          <div className="grid grid-cols-2 gap-2" role="group" aria-label={t('contact.budget', 'Estimated Budget Allocation')}>
             {defaultBudgetOptions.map((b) => {
               const label = isOdia ? b.or : b.en;
               const isSelected = values.budget === b.id || values.budget === b.en || values.budget === b.or;
@@ -195,11 +210,12 @@ export default function ContactForm() {
                 <button
                   key={b.id}
                   type="button"
+                  aria-pressed={isSelected}
                   onClick={() => handleSelectField('budget', b.id)}
                   className={`py-2 px-2.5 text-xs rounded-lg font-medium border text-center transition-all cursor-pointer ${
                     isSelected
                       ? 'border-amber-600 bg-amber-50 text-amber-900 font-semibold shadow-sm'
-                      : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300 hover:bg-slate-100'
+                      : 'border-slate-300 bg-slate-50 text-slate-700 hover:border-slate-400 hover:bg-slate-100'
                   }`}
                 >
                   {label}
@@ -212,18 +228,27 @@ export default function ContactForm() {
 
       {/* Row 4: File Simulation Dropzone */}
       <div className="space-y-1.5">
-        <label className="block text-xs font-semibold text-slate-700">
+        <span className="block text-xs font-semibold text-slate-700">
           {t('contact.attach', 'Attach CAD Drawings / BIM Models / PDFs (Optional)')}
-        </label>
+        </span>
         <div
+          role="button"
+          tabIndex={0}
+          aria-label={t('contact.attachSubtitle', 'Click to upload DWG, AutoCAD, Revit, 3DM, or PDF files')}
           onClick={handleFileUploadSim}
-          className="border-2 border-dashed border-slate-200 hover:border-amber-400 bg-slate-50 hover:bg-amber-50/20 rounded-xl p-5 text-center cursor-pointer transition-all group"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleFileUploadSim();
+            }
+          }}
+          className="border-2 border-dashed border-slate-300 hover:border-amber-500 bg-slate-50 hover:bg-amber-50/20 rounded-xl p-5 text-center cursor-pointer transition-all group focus:outline-none focus:ring-2 focus:ring-amber-500"
         >
-          <UploadCloud size={24} className="mx-auto text-slate-400 group-hover:text-amber-600 mb-1.5 transition-colors" />
-          <p className="text-xs text-slate-700 font-medium">
+          <UploadCloud size={24} className="mx-auto text-slate-500 group-hover:text-amber-600 mb-1.5 transition-colors" />
+          <p className="text-xs text-slate-800 font-medium">
             {t('contact.attachSubtitle', 'Click to upload DWG, AutoCAD, Revit, 3DM, or PDF files')}
           </p>
-          <p className="text-[11px] text-slate-400 mt-0.5">
+          <p className="text-[11px] text-slate-600 mt-0.5">
             {t('contact.attachMax', 'Maximum file size: 200MB. Handled with strict commercial confidentiality.')}
           </p>
         </div>
@@ -231,21 +256,25 @@ export default function ContactForm() {
 
       {/* Row 5: Message */}
       <div className="space-y-1.5">
-        <label className="block text-xs font-semibold text-slate-700">
-          {t('contact.message', 'Project Scope & Timeline Details')} <span className="text-rose-500">*</span>
+        <label htmlFor="contact-message" className="block text-xs font-semibold text-slate-700">
+          {t('contact.message', 'Project Scope & Timeline Details')} <span className="text-rose-600" aria-hidden="true">*</span>
         </label>
         <textarea
+          id="contact-message"
           name="message"
+          required
+          aria-required="true"
+          aria-invalid={errors.message ? 'true' : 'false'}
           rows={3}
           value={values.message}
           onChange={handleChange}
           placeholder={t('contact.messagePlaceholder', 'Please describe your project location, target completion dates, architectural requirements, or steel/RCC specifications...')}
           className={`w-full bg-slate-50 border rounded-xl px-4 py-2.5 text-sm text-slate-900 outline-none transition-all ${
-            errors.message ? 'border-rose-300 bg-rose-50/50 ring-2 ring-rose-100' : 'border-slate-200 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100'
+            errors.message ? 'border-rose-400 bg-rose-50/50 ring-2 ring-rose-100' : 'border-slate-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-100'
           }`}
         />
         {errors.message && (
-          <span className="text-xs text-rose-600 block">{errors.message}</span>
+          <span role="alert" className="text-xs text-rose-600 block">{errors.message}</span>
         )}
       </div>
 
@@ -260,8 +289,8 @@ export default function ContactForm() {
           <Send size={15} />
         </button>
 
-        <div className="flex items-center gap-1.5 text-xs text-slate-500">
-          <Lock size={13} className="text-emerald-600" />
+        <div className="flex items-center gap-1.5 text-xs text-slate-600">
+          <Lock size={13} className="text-emerald-700" />
           <span>{t('contact.ndaProtected', 'NDA Protected & Confidential')}</span>
         </div>
       </div>
