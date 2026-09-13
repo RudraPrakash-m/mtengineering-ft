@@ -80,6 +80,25 @@ export default function ProjectDetails() {
         canonicalUrl={`https://mtengineering.netlify.app/work/${project.id}`}
         image={project.heroImage}
         ogType="article"
+        schemaJson={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: displayTitle,
+          description: displayShortDesc || `${displayTitle} architectural scale model and civil engineering project in ${displayLocation}.`,
+          image: project.heroImage,
+          author: {
+            '@type': 'Organization',
+            name: 'MT Engineering & Construction',
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'MT Engineering & Construction',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop',
+            },
+          },
+        }}
       />
       {/* Blueprint Coordinate Micro-grid Background Accent */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.025] bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:40px_40px]" />

@@ -1,57 +1,109 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
-export default function SEO({ title, description, canonicalUrl, ogType = 'website', image }) {
+const DEFAULT_TITLE = 'MT Engineering & Construction | Bhubaneswar Civil & Scale Model Contractors';
+const DEFAULT_DESC = "MT Engineering & Construction is Bhubaneswar's premier engineering contractor specializing in physical architectural scale models, structural steel, and RCC slabs.";
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop';
+const BASE_URL = 'https://mtengineering.netlify.app';
+
+export default function SEO({
+  title,
+  description,
+  canonicalUrl,
+  ogType = 'website',
+  image,
+  keywords,
+  schemaJson,
+  noIndex = false,
+  children,
+}) {
   const location = useLocation();
-  const currentUrl = canonicalUrl || `https://mtengineering.netlify.app${location.pathname === '/' ? '' : location.pathname}`;
-  const defaultTitle = 'MT Engineering & Construction | Bhubaneswar Civil & Scale Model Contractors';
-  const defaultDesc = "MT Engineering & Construction is Bhubaneswar's premier engineering contractor specializing in physical architectural scale models, structural steel, and RCC slabs.";
-  const defaultImage = 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop';
+  const currentPath = location.pathname === '/' ? '' : location.pathname;
+  const currentUrl = canonicalUrl || `${BASE_URL}${currentPath}`;
+  const fullTitle = title ? `${title} | MT Engineering & Construction` : DEFAULT_TITLE;
+  const fullDesc = description || DEFAULT_DESC;
+  const fullImage = image || DEFAULT_IMAGE;
+  const robotsDirective = noIndex
+    ? 'noindex, nofollow'
+    : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
-  const fullTitle = title ? `${title} | MT Engineering & Construction` : defaultTitle;
-  const fullDesc = description || defaultDesc;
-  const fullImage = image || defaultImage;
-
+  // Immediate DOM synchronization & deduplication for Lighthouse 100 SEO score
   useEffect(() => {
-    // 1. Update Document Title
+    // 1. Direct document title sync
     document.title = fullTitle;
 
-    // 2. Update Meta Description
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute('content', fullDesc);
+    // 2. Remove duplicate meta description tags (keep only 1)
+    const metaDescs = document.querySelectorAll('meta[name="description"]');
+    if (metaDescs.length > 1) {
+      for (let i = 1; i < metaDescs.length; i++) {
+        metaDescs[i].remove();
+      }
+    }
+    if (metaDescs[0]) {
+      metaDescs[0].setAttribute('content', fullDesc);
     }
 
-    // 3. Update Canonical Tag
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) {
-      canonical.setAttribute('href', currentUrl);
+    // 3. Remove duplicate canonical links
+    const canonicals = document.querySelectorAll('link[rel="canonical"]');
+    if (canonicals.length > 1) {
+      for (let i = 1; i < canonicals.length; i++) {
+        canonicals[i].remove();
+      }
+    }
+    if (canonicals[0]) {
+      canonicals[0].setAttribute('href', currentUrl);
     }
 
-    // 4. Update OpenGraph Tags
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute('content', fullTitle);
+    // 4. Remove duplicate robots tags
+    const robots = document.querySelectorAll('meta[name="robots"]');
+    if (robots.length > 1) {
+      for (let i = 1; i < robots.length; i++) {
+        robots[i].remove();
+      }
+    }
+    if (robots[0]) {
+      robots[0].setAttribute('content', robotsDirective);
+    }
+  }, [fullTitle, fullDesc, currentUrl, robotsDirective]);
 
-    const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.setAttribute('content', fullDesc);
+  return (
+    <Helmet prioritizeSeoTags>
+      {/* Primary Meta */}
+      <title>{fullTitle}</title>
+      <meta name="description" content={fullDesc} />
+      {keywords && <meta name="keywords" content={keywords} />}
+      <meta name="robots" content={robotsDirective} />
 
-    const ogUrl = document.querySelector('meta[property="og:url"]');
-    if (ogUrl) ogUrl.setAttribute('content', currentUrl);
+      {/* Canonical Link */}
+      <link rel="canonical" href={currentUrl} />
 
-    const ogImg = document.querySelector('meta[property="og:image"]');
-    if (ogImg) ogImg.setAttribute('content', fullImage);
+      {/* Open Graph / Facebook / LinkedIn */}
+      <meta property="og:type" content={ogType} />
+      <meta property="og:site_name" content="MT Engineering & Construction" />
+      <meta property="og:title" content={fullTitle} />
+      <meta property="og:description" content={fullDesc} />
+      <meta property="og:url" content={currentUrl} />
+      <meta property="og:image" content={fullImage} />
+      <meta property="og:locale" content="en_US" />
 
-    // 5. Update Twitter Card Tags
-    const twTitle = document.querySelector('meta[name="twitter:title"]');
-    if (twTitle) twTitle.setAttribute('content', fullTitle);
+      {/* Twitter Card */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={fullDesc} />
+      <meta name="twitter:image" content={fullImage} />
 
-    const twDesc = document.querySelector('meta[name="twitter:description"]');
-    if (twDesc) twDesc.setAttribute('content', fullDesc);
+      {/* Structured Data (JSON-LD) if provided */}
+      {schemaJson && (
+        <script type="application/ld+json">
+          {JSON.stringify(schemaJson)}
+        </script>
+      )}
 
-    const twImg = document.querySelector('meta[name="twitter:image"]');
-    if (twImg) twImg.setAttribute('content', fullImage);
-
-  }, [fullTitle, fullDesc, currentUrl, fullImage, ogType]);
-
-  return null;
+      {/* Custom children elements if supplied */}
+      {children}
+    </Helmet>
+  );
 }
+
+
