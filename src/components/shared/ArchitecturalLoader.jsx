@@ -16,10 +16,14 @@ export default function ArchitecturalLoader({ onComplete }) {
     if (typeof window === 'undefined') return true;
     const ua = navigator.userAgent || '';
     const isBot = /bot|google|lighthouse|pagespeed|crawler|spider|headless/i.test(ua);
-    return isBot;
+    if (isBot) return true;
+    try {
+      return sessionStorage.getItem('mte_intro_shown') === 'true';
+    } catch {
+      return false;
+    }
   });
   const loaderRef = useRef(null);
-  const reticleRef = useRef(null);
 
   useEffect(() => {
     if (isDone) {
@@ -27,51 +31,67 @@ export default function ArchitecturalLoader({ onComplete }) {
       return;
     }
 
-    // Reticle continuous rotation
-    const rotationTween = gsap.to(reticleRef.current, {
-      rotation: 360,
-      duration: 8,
-      repeat: -1,
-      ease: 'none',
-    });
+    let currentVal = 0;
+    const startTime = performance.now();
+    const duration = 650; // ms total duration
+    let animFrameId;
 
-    // Snappy progress counter for optimal FCP / LCP
-    const counterObj = { val: 0 };
-    const progressTween = gsap.to(counterObj, {
-      val: 100,
-      duration: 0.75,
-      ease: 'power2.out',
-      onUpdate: () => {
-        const currentVal = Math.floor(counterObj.val);
-        setProgress(currentVal);
-        
-        const stepIdx = Math.min(
-          Math.floor((currentVal / 100) * telemetrySteps.length),
-          telemetrySteps.length - 1
-        );
-        setTelemetryText(telemetrySteps[stepIdx]);
-      },
-      onComplete: () => {
-        // Ultra-smooth fast fade out
-        const tl = gsap.timeline({
+    // Hard fallback timeout: guarantees loader vanishes in 900ms maximum
+    const fallbackTimer = setTimeout(() => {
+      finishLoader();
+    }, 900);
+
+    const finishLoader = () => {
+      clearTimeout(fallbackTimer);
+      cancelAnimationFrame(animFrameId);
+      try {
+        sessionStorage.setItem('mte_intro_shown', 'true');
+      } catch {}
+      
+      if (loaderRef.current) {
+        loaderRef.current.style.pointerEvents = 'none';
+        gsap.to(loaderRef.current, {
+          opacity: 0,
+          scale: 1.02,
+          duration: 0.3,
+          ease: 'power2.inOut',
           onComplete: () => {
             setIsDone(true);
             if (onComplete) onComplete();
           },
         });
+      } else {
+        setIsDone(true);
+        if (onComplete) onComplete();
+      }
+    };
 
-        tl.to(loaderRef.current, {
-          opacity: 0,
-          scale: 1.02,
-          duration: 0.35,
-          ease: 'power2.inOut',
-        });
-      },
-    });
+    const updateFrame = (now) => {
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      currentVal = Math.floor(eased * 100);
+      setProgress(currentVal);
+
+      const stepIdx = Math.min(
+        Math.floor((currentVal / 100) * telemetrySteps.length),
+        telemetrySteps.length - 1
+      );
+      setTelemetryText(telemetrySteps[stepIdx]);
+
+      if (t < 1) {
+        animFrameId = requestAnimationFrame(updateFrame);
+      } else {
+        finishLoader();
+      }
+    };
+
+    animFrameId = requestAnimationFrame(updateFrame);
 
     return () => {
-      rotationTween.kill();
-      progressTween.kill();
+      clearTimeout(fallbackTimer);
+      cancelAnimationFrame(animFrameId);
     };
   }, [isDone, onComplete]);
 
@@ -110,9 +130,8 @@ export default function ArchitecturalLoader({ onComplete }) {
 
           {/* Rotating Reticle Dial */}
           <svg
-            ref={reticleRef}
             viewBox="0 0 120 120"
-            className="w-full h-full text-slate-400"
+            className="w-full h-full text-slate-400 animate-[spin_10s_linear_infinite]"
           >
             {/* Outer coordinate ring */}
             <circle

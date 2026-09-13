@@ -1,32 +1,61 @@
-import { lazy, Suspense } from 'react';
+import { lazy, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
-import PageLoader from '../components/shared/PageLoader';
+import Home from '../features/home/pages/Home';
 
-// Lazy-loaded Feature Pages
-const Home = lazy(() => import('../features/home/pages/Home'));
-const About = lazy(() => import('../features/about/pages/About'));
-const Work = lazy(() => import('../features/work/pages/Work'));
-const ProjectDetails = lazy(() => import('../features/work/pages/ProjectDetails'));
-const Capabilities = lazy(() => import('../features/capabilities/pages/Capabilities'));
-const Process = lazy(() => import('../features/process/pages/Process'));
-const Contact = lazy(() => import('../features/contact/pages/Contact'));
+// Lazy load secondary routes with explicit prefetch functions
+export const loadAbout = () => import('../features/about/pages/About');
+export const loadWork = () => import('../features/work/pages/Work');
+export const loadProjectDetails = () => import('../features/work/pages/ProjectDetails');
+export const loadCapabilities = () => import('../features/capabilities/pages/Capabilities');
+export const loadProcess = () => import('../features/process/pages/Process');
+export const loadContact = () => import('../features/contact/pages/Contact');
+
+const About = lazy(loadAbout);
+const Work = lazy(loadWork);
+const ProjectDetails = lazy(loadProjectDetails);
+const Capabilities = lazy(loadCapabilities);
+const Process = lazy(loadProcess);
+const Contact = lazy(loadContact);
+
+// Preload all secondary chunks during browser idle time for 0ms navigation
+function prefetchAllRoutes() {
+  if (typeof window === 'undefined') return;
+  const prefetch = () => {
+    loadAbout();
+    loadWork();
+    loadProjectDetails();
+    loadCapabilities();
+    loadProcess();
+    loadContact();
+  };
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(prefetch, { timeout: 2000 });
+  } else {
+    setTimeout(prefetch, 800);
+  }
+}
 
 export default function AppRoutes() {
+  useEffect(() => {
+    prefetchAllRoutes();
+  }, []);
+
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="work" element={<Work />} />
-          <Route path="work/:id" element={<ProjectDetails />} />
-          <Route path="capabilities" element={<Capabilities />} />
-          <Route path="process" element={<Process />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
-    </Suspense>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="work" element={<Work />} />
+        <Route path="work/:id" element={<ProjectDetails />} />
+        <Route path="capabilities" element={<Capabilities />} />
+        <Route path="process" element={<Process />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   );
 }
+
+

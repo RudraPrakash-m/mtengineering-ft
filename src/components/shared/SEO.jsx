@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 
@@ -27,45 +26,6 @@ export default function SEO({
   const robotsDirective = noIndex
     ? 'noindex, nofollow'
     : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
-
-  // Immediate DOM synchronization & deduplication for Lighthouse 100 SEO score
-  useEffect(() => {
-    // 1. Direct document title sync
-    document.title = fullTitle;
-
-    // 2. Remove duplicate meta description tags (keep only 1)
-    const metaDescs = document.querySelectorAll('meta[name="description"]');
-    if (metaDescs.length > 1) {
-      for (let i = 1; i < metaDescs.length; i++) {
-        metaDescs[i].remove();
-      }
-    }
-    if (metaDescs[0]) {
-      metaDescs[0].setAttribute('content', fullDesc);
-    }
-
-    // 3. Remove duplicate canonical links
-    const canonicals = document.querySelectorAll('link[rel="canonical"]');
-    if (canonicals.length > 1) {
-      for (let i = 1; i < canonicals.length; i++) {
-        canonicals[i].remove();
-      }
-    }
-    if (canonicals[0]) {
-      canonicals[0].setAttribute('href', currentUrl);
-    }
-
-    // 4. Remove duplicate robots tags
-    const robots = document.querySelectorAll('meta[name="robots"]');
-    if (robots.length > 1) {
-      for (let i = 1; i < robots.length; i++) {
-        robots[i].remove();
-      }
-    }
-    if (robots[0]) {
-      robots[0].setAttribute('content', robotsDirective);
-    }
-  }, [fullTitle, fullDesc, currentUrl, robotsDirective]);
 
   return (
     <Helmet prioritizeSeoTags>
